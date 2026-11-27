@@ -1,0 +1,27 @@
+[project]
+name = "tema-mint-leve"
+version = "0.1.0"
+description = "Automação pós-formatação e rice para Linux Mint (XFCE), focado em laptops antigos com prioridade em performance e duração de bateria."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "pyyaml>=6.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "--strict-markers -m 'not post_install'"
+markers = [
+    "unit: testes unitários rápidos e isolados (core, cli, registries)",
+    "integration: testes de integração em sandbox (TARGET_HOME e mock_bin)",
+    "post_install: verificação pós-instalação na máquina real",
+    "slow: testes demorados (podem ser pulados com -m 'not slow')",
+]

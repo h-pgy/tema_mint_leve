@@ -24,12 +24,12 @@ implemented: false
 - **Para quê**: <Problema que resolve/evita>
 - **Resultado**: <Capacidade habilitada no sistema/projeto>
 
-## 2. Grafo de Dependências e Ordem de Execução
-- **`order`**: `<int>`
-- **`depends_on`**: `["<cat>.<mod>"]`
-- **Impacto no Grafo (DAG)**: <Explicação de como este módulo se conecta a scripts anteriores ou posteriores e como se comporta quando invocado isoladamente via `--module`>
+## 2. Grafo de Dependências e Ordem de Execução (Apenas para módulos de `scripts/`, senão `N/A`)
+- **`order`**: `<int>` (ou `N/A`)
+- **`depends_on`**: `["<cat>.<mod>"]` (ou `N/A`)
+- **Impacto no Grafo (DAG)**: <Explicação de como este módulo se conecta a scripts anteriores ou posteriores, ou `N/A` para entregas internas de infraestrutura/core/cli>
 
-## 3. Especificação do Registry (`YAML`)
+## 3. Especificação do Registry (`YAML`) (Apenas para módulos de `scripts/`, senão `N/A`)
 ```yaml
 # Trecho exato para scripts/<category>/registry.yaml
 id: <module_id>

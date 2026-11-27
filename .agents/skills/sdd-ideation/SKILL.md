@@ -17,6 +17,18 @@ Seu trabalho é ajudar o usuário a definir rapidamente o que será entregue com
 
 ---
 
+## 0. Regra Prévia Obrigatória: Leitura de `IDEACAO.md` Pré-existente e Subdivisão Proativa de Specs
+
+1. **Verificação e Continuação a partir de `referencias/IDEACAO.md` Pré-existente**:
+   - Antes de fazer qualquer pergunta ao usuário, **sempre verifique primeiro** se já existe um arquivo `specs/<epico>/<NN_nome_da_spec>/referencias/IDEACAO.md` (placeholder ou rascunho inicial deixado por uma sessão anterior com `approved: false`).
+   - Se o arquivo já existir, **leia-o integralmente e parta dele**: apresente ao usuário um resumo curto do que já está mapeado e faça perguntas apenas para refinar, confirmar ou destravar pontos pendentes (nunca recomece do zero ignorando o rascunho existente).
+2. **Subdivisão Proativa de Escopos Grandes em Múltiplas Specs Placeholders**:
+   - Avalie continuamente se o escopo discutido está grande demais para uma única spec (por exemplo, misturando configurações base, modelos de domínio, motor de execução e múltiplos scripts).
+   - Sempre que identificar um escopo amplo, **proponha e execute a subdivisão proativa em múltiplas specs menores e autocontidas** dentro do épico (`specs/<epico>/<01_...>/`, `specs/<epico>/<02_...>/`, etc.).
+   - Para cada spec desmembrada futura, crie imediatamente o diretório e o arquivo `specs/<epico>/<NN_spec_futura>/referencias/IDEACAO.md` com `approved: false` e `implemented: false` contendo todo o contexto, decisões e rascunhos já levantados na conversa, servindo como *placeholder* rico para quando aquela spec for iniciada.
+
+---
+
 ## 1. Regra de Interação: Mínimo Esforço do Usuário (Sim/Não, 1/2/3, Recomendações)
 
 O usuário quer responder com o mínimo de texto possível (`Sim`, `Não`, `1`, `2`, ou clicando em opções). Portanto:

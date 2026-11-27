@@ -43,13 +43,39 @@ tema_mint_leve/
 ├── README.md                  # Comandos de uso do CLI, uv e pytest
 ├── install.sh                 # Bootstrap inicial (pyenv + uv + chamada do CLI)
 ├── pyproject.toml             # Dependências gerenciadas pelo uv
+├── config.py                  # AppSettings (pydantic-settings) com validação fail-fast e get_settings()
+├── utils/                     # Utilitários compartilhados (exceptions.py, paths.py, fs.py)
 ├── docs/                      # Documentação organizada por domínio (architecture, modules, testing, sdd)
 ├── specs/                     # Épicos e especificações do Spec-Driven Development
 ├── cli/                       # Camada de interface (menus, flags, renderização de READMEs)
-├── core/                      # Lógica central (models Pydantic, loader de registry, DAG, runner, env)
+├── core/                      # Lógica central (exceptions.py, models Pydantic, loader, prova de instalação, DAG, runner)
 ├── scripts/                   # Módulos separados por domínio (rice, os_config, dev_env, etc.)
 └── tests/                     # Suíte pytest e fixtures de sandbox
 ```
+
+---
+
+## 2.1. Configurações Globais (`config.py`), Utilitários (`utils/`) e Exceções Semânticas (`exceptions.py`)
+
+### Regra Arquitetural: Módulos de Exceções Semânticas (`exceptions.py`)
+Nenhum módulo do sistema pode definir classes de erro espalhadas ou levantar `ValueError`/`RuntimeError` genéricos para regras de negócio, validação de caminhos ou configuração.
+- Todo pacote/domínio possui seu próprio módulo `exceptions.py` (ex: `utils/exceptions.py`, `core/exceptions.py`), permitindo importação limpa e tratamento tipado (`try/except`) entre módulos.
+- Todas as exceções do projeto herdam de `MintLeveBaseError` (definida em `utils/exceptions.py`).
+
+### Configurações Globais Fail-Fast (`config.py`)
+O módulo `config.py` na raiz centraliza a leitura de variáveis de ambiente via `AppSettings(BaseSettings)` (`pydantic-settings`) e expõe `get_settings() -> AppSettings`. Ao ser instanciado, valida imediatamente (*fail-fast*) o estado do sistema de arquivos, lançando exceções semânticas de `utils/exceptions.py`:
+- `PROJECT_ROOT`: Diretório raiz do projeto (`ProjectRootNotFoundError`).
+- `SCRIPTS_DIR`: Diretório de categorias e módulos, default `PROJECT_ROOT / "scripts"` (`ScriptsDirectoryNotFoundError`).
+- `TARGET_HOME`: Diretório home alvo, default `Path.home()` (`TargetHomeNotFoundError`).
+- `DOTENV_PATH`: Arquivo `.env` alvo, default `PROJECT_ROOT / ".env"` (`InvalidDotenvPathError` se apontar para diretório ou se `DOTENV_PATH.parent` não existir).
+- `MODULE_DIR` e `MODULE_ASSETS_DIR`: Diretórios opcionais do módulo em execução (`ModuleDirectoryNotFoundError`, `ModuleAssetsDirectoryNotFoundError`).
+- `STATE_FILE_REL_PATH`: Caminho relativo seguro do manifesto de estado instalado, default `.config/tema_mint_leve/installed_state.json` (`PathValidationError` e subclasses).
+- `DRY_RUN`: Booleano indicando simulação sem efeitos colaterais (`False` por padrão).
+
+### Pacote `utils/`
+Fornece funções puras e reutilizáveis pelo `core/` e pelos scripts Python (`run.py`):
+- `utils/paths.py`: `validate_relative_path`, `is_safe_relative_path` (bloqueando caminhos vazios, absolutos `/`, expansão `~` ou path traversal `..` com `EmptyRelativePathError`, `AbsolutePathNotAllowedError` e `PathTraversalNotAllowedError`), além de `resolve_target_path`, `resolve_asset_path` (que lança `ModuleAssetsNotConfiguredError` se `MODULE_ASSETS_DIR` for `None`) e `resolve_state_file_path`.
+- `utils/fs.py`: `file_exists` e `dir_exists`.
 
 ---
 

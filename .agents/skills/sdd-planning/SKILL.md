@@ -41,11 +41,11 @@ O `SPEC.md` deve ser **direto, técnico, sem texto prolixo e sempre no mesmo pad
    - `epic`, `spec`, `type: "spec"`, `category`, `module_id`, `requires_ui_mock: true | false`, `approved: false`, `implemented: false`.
 2. **Objetivo e Escopo**:
    - Síntese clara do *"O quê / Para quê / Resultado esperado"* definida na ideação.
-3. **Grafo de Dependências e Ordem de Execução**:
-   - Definição exata de `order` e `depends_on` (lista de IDs `<categoria>.<modulo>`).
-   - Explicação de como o gerenciador de dependências (`core/`) deve tratar esse script no DAG (quais nós devem rodar antes dele quando chamado isoladamente ou em lote, e garantia de ausência de ciclos).
-4. **Especificação do Registry (`YAML`)**:
-   - O bloco YAML exato e completo que será inserido em `scripts/<categoria>/registry.yaml`.
+3. **Grafo de Dependências e Ordem de Execução (Quando for um módulo de `scripts/`, senão `N/A`)**:
+   - Para scripts instaláveis (`scripts/<categoria>/<modulo>`): definição exata de `order` e `depends_on` (lista de IDs `<categoria>.<modulo>`).
+   - Para entregas internas de código/infraestrutura (`config.py`, `utils/`, `core/`, `cli/`): preencher apenas `N/A`, sem misturar escopo do grafo de dependências.
+4. **Especificação do Registry (`YAML`) (Quando for um módulo de `scripts/`, senão `N/A`)**:
+   - Para scripts instaláveis: o bloco YAML exato que será inserido em `scripts/<categoria>/registry.yaml`. Para entregas internas de código: `N/A`.
 5. **Modelo Pydantic (`core/models.py`)**:
    - A instância/schema Pydantic correspondente (`ScriptModule`, `EnvPrompt`, `CategoryRegistry` ou novos modelos caso a spec seja uma funcionalidade do `core/`, como o próprio resolvedor do grafo de dependências).
    - Deve explicitar as validações esperadas do Pydantic (existência de `entrypoint`, `README.md`, tipos de `runner`, validação de `depends_on`).

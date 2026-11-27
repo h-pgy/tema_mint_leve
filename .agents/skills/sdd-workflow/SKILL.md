@@ -43,6 +43,9 @@ Inspecione a pasta `specs/<epico>/<spec>/`:
 
 1. **Etapa 1 — Ideação (`sdd-ideation`)**:
    - **Quando acionar**: A pasta da spec não existe, ou `referencias/IDEACAO.md` existe mas está com `approved: false` (e `SPEC.md` ainda não existe).
+   - **Double-Check**:
+     1. Verifique se já existe um arquivo `referencias/IDEACAO.md` pré-existente (ex: placeholder criado durante a subdivisão de um épico). Se existir, o agente de ideação **deve** lê-lo e continuar a partir dele em vez de iniciar do zero.
+     2. Se o escopo discutido for amplo demais para uma única entrega, garanta a subdivisão proativa em múltiplas specs menores criando placeholders `specs/<epico>/<NN_spec>/referencias/IDEACAO.md` (`approved: false`).
    - **Ação**: Leia e siga `.agents/skills/sdd-ideation/SKILL.md`.
 
 2. **Etapa 1.5 (Opcional / Condicional) — Mock Visual e Guardrails de UI (`sdd-ui-mock`)**:
