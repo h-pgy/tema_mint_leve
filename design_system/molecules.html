@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Moléculas — Design System (Tema Mint Leve)</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+</head>
+<body class="ds-showcase-body">
+  <nav class="ds-navbar">
+    <a href="index.html" class="ds-navbar__brand">
+      <span class="ds-navbar__brand-dot"></span>
+      <span>tema_mint_leve · Atomic Design System</span>
+    </a>
+    <div class="ds-navbar__links">
+      <a href="index.html" class="ds-navbar__link">Visão Geral</a>
+      <a href="tokens.html" class="ds-navbar__link">0. Tokens</a>
+      <a href="atoms.html" class="ds-navbar__link">1. Átomos</a>
+      <a href="molecules.html" class="ds-navbar__link is-current">2. Moléculas</a>
+      <a href="organisms.html" class="ds-navbar__link">3. Organismos</a>
+    </div>
+  </nav>
+
+  <main class="ds-container">
+    <header class="ds-page-header">
+      <div class="ds-page-header__eyebrow">Nível 2 · Composições Funcionais</div>
+      <h1 class="ds-page-header__title">2. Moléculas (Barras de Título, Grupos de Painel e Toasts)</h1>
+      <p class="ds-page-header__desc">
+        Combinações de átomos que formam blocos reutilizáveis nas interfaces do XFCE. Todo organismo na aba
+        seguinte é montado a partir destas moléculas.
+      </p>
+    </header>
+
+    <section class="ds-grid">
+      <!-- Molécula 1: Barra de Título xfwm4 Ativa e Inativa -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Barra de Título <code>xfwm4</code> (Ativa &amp; Backdrop)</h2>
+          <span class="ds-atom-badge ds-atom-badge--mint">xfwm4: themerc + .xpm</span>
+        </div>
+        <div class="ds-card__preview ds-card__preview--block">
+          <div class="ds-mol-xfwm-titlebar" style="margin-bottom: 10px;">
+            <span>xfce4-terminal — ~/projects/tema_mint_leve</span>
+            <div class="ds-mol-xfwm-titlebar__controls">
+              <span class="ds-atom-win-ctrl ds-atom-win-ctrl--min"></span>
+              <span class="ds-atom-win-ctrl ds-atom-win-ctrl--max"></span>
+              <span class="ds-atom-win-ctrl ds-atom-win-ctrl--close"></span>
+            </div>
+          </div>
+          <div class="ds-mol-xfwm-titlebar is-backdrop">
+            <span>Thunar — ~/Downloads (Janela Inativa)</span>
+            <div class="ds-mol-xfwm-titlebar__controls">
+              <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive"></span>
+              <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive"></span>
+              <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive"></span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Átomos usados:</strong> Tipografia <code>--ds-text-sm</code> + 3x <code>.ds-atom-win-ctrl</code>.</span>
+          <span><strong>Quando usar:</strong> Topo de toda janela gerenciada pelo Window Manager nativo do XFCE (<code>xfwm4</code>).</span>
+          <span><strong>Destino no OS:</strong> <code>~/.themes/&lt;Tema&gt;/xfwm4/themerc</code> (<code>active_text_color</code>, <code>inactive_text_color</code>, <code>button_spacing=6</code>) + slices <code>title-1..5-{active,inactive}.xpm</code>.</span>
+        </div>
+      </article>
+
+      <!-- Molécula 2: Grupo Launcher + Workspaces -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Grupo Whisker Menu + Workspaces</h2>
+          <span class="ds-atom-badge">GTK3: #whiskermenu-button</span>
+        </div>
+        <div class="ds-card__preview">
+          <div class="ds-mol-panel-launcher-group">
+            <button class="ds-mol-whisker-btn">❖ Mint</button>
+            <span class="ds-atom-separator-v"></span>
+            <span class="ds-atom-badge ds-atom-badge--active">1</span>
+            <span class="ds-atom-badge">2</span>
+            <span class="ds-atom-badge">3</span>
+          </div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Átomos usados:</strong> <code>.ds-mol-whisker-btn</code> + <code>.ds-atom-separator-v</code> + <code>.ds-atom-badge</code>.</span>
+          <span><strong>Quando usar:</strong> Extremidade esquerda do organismo <code>.ds-org-xfce-panel</code>.</span>
+          <span><strong>Destino no OS:</strong> <code>#whiskermenu-button</code> e <code>.xfce4-panel #pager-button</code> em <code>~/.config/gtk-3.0/gtk.css</code>.</span>
+        </div>
+      </article>
+
+      <!-- Molécula 3: Tasklist de Janelas Abertas -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Itens da Tasklist (<code>.ds-mol-tasklist-item</code>)</h2>
+          <span class="ds-atom-badge">GTK3: .tasklist .toggle</span>
+        </div>
+        <div class="ds-card__preview">
+          <div class="ds-mol-tasklist-item is-checked">▸ xfce4-terminal</div>
+          <div class="ds-mol-tasklist-item">Thunar</div>
+          <div class="ds-mol-tasklist-item">VS Code</div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Região central do painel XFCE para alternar janelas ativas/minimizadas.</span>
+          <span><strong>Destino no OS:</strong> <code>.xfce4-panel .tasklist .toggle</code> e <code>.xfce4-panel .tasklist .toggle:checked</code> (destaque inferior de 2px com <code>@accent_primary</code>).</span>
+        </div>
+      </article>
+
+      <!-- Molécula 4: Systray + Relógio + Bateria -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Systray &amp; Relógio (<code>.ds-mol-panel-systray</code>)</h2>
+          <span class="ds-atom-badge">GTK3: #clock-button</span>
+        </div>
+        <div class="ds-card__preview">
+          <div class="ds-mol-panel-systray">
+            <span>Wi-Fi</span>
+            <span class="ds-atom-separator-v"></span>
+            <span style="color: var(--ds-state-success);">BAT 94%</span>
+            <span class="ds-atom-separator-v"></span>
+            <span>27 Nov · 00:08</span>
+          </div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Extremidade direita do painel XFCE para monitoramento leve de bateria, rede e horário.</span>
+          <span><strong>Destino no OS:</strong> <code>#clock-button</code>, <code>#pulseaudio-button</code> e <code>#xfce4-power-manager-plugin</code>.</span>
+        </div>
+      </article>
+
+      <!-- Molécula 5: Toast de Notificação -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Toast de Notificação (<code>.ds-mol-notification</code>)</h2>
+          <span class="ds-atom-badge">GTK3: xfce4-notifyd</span>
+        </div>
+        <div class="ds-card__preview">
+          <div class="ds-mol-notification">
+            <div class="ds-mol-notification__title">Modo Economia Ativo</div>
+            <div>Brilho ajustado para 40% e governador CPU em powersave.</div>
+          </div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Alertas do sistema e feedback de scripts do <code>tema_mint_leve</code>.</span>
+          <span><strong>Destino no OS:</strong> <code>#XfceNotifyWindow</code> em <code>~/.config/gtk-3.0/gtk.css</code>.</span>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

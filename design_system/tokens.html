@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>0. Tokens — Design System (Tema Mint Leve)</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+</head>
+<body class="ds-showcase-body">
+  <nav class="ds-navbar">
+    <a href="index.html" class="ds-navbar__brand">
+      <span class="ds-navbar__brand-dot"></span>
+      <span>tema_mint_leve · Atomic Design System</span>
+    </a>
+    <div class="ds-navbar__links">
+      <a href="index.html" class="ds-navbar__link">Visão Geral</a>
+      <a href="tokens.html" class="ds-navbar__link is-current">0. Tokens</a>
+      <a href="atoms.html" class="ds-navbar__link">1. Átomos</a>
+      <a href="molecules.html" class="ds-navbar__link">2. Moléculas</a>
+      <a href="organisms.html" class="ds-navbar__link">3. Organismos</a>
+    </div>
+  </nav>
+
+  <main class="ds-container">
+    <header class="ds-page-header">
+      <div class="ds-page-header__eyebrow">Nível 0 · Fundação Visual Centralizada</div>
+      <h1 class="ds-page-header__title">0. Design Tokens (Paleta, Fontes e Geometria)</h1>
+      <p class="ds-page-header__desc">
+        Tokens centralizados em <code>design_system/css/design-system.css</code>. Proibido inventar cores hexadecimais
+        ou fontes avulsas nos mocks: utilize sempre estas variáveis e seu mapeamento direto para o GTK3 e <code>xfwm4</code>.
+      </p>
+    </header>
+
+    <h2 style="font-size: 16px; margin: 0 0 14px 0;">Superfícies e Fundos</h2>
+    <section class="ds-swatch-grid">
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-bg-base);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-bg-base</span>
+          <span class="ds-swatch__value">#181825</span>
+          <span class="ds-swatch__target">GTK3: <code>@define-color bg_base #181825;</code></span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-bg-surface);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-bg-surface</span>
+          <span class="ds-swatch__value">#1e1e2e</span>
+          <span class="ds-swatch__target">GTK3: <code>@define-color bg_surface #1e1e2e;</code></span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-bg-elevated);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-bg-elevated</span>
+          <span class="ds-swatch__value">#262639</span>
+          <span class="ds-swatch__target">GTK3: <code>@define-color bg_elevated #262639;</code></span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-bg-overlay);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-bg-overlay</span>
+          <span class="ds-swatch__value">#313244</span>
+          <span class="ds-swatch__target">GTK3: <code>@define-color bg_overlay #313244;</code></span>
+        </div>
+      </div>
+    </section>
+
+    <h2 style="font-size: 16px; margin: 28px 0 14px 0;">Destaques (Accents), Texto e Semântica</h2>
+    <section class="ds-swatch-grid">
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-accent-primary);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-accent-primary</span>
+          <span class="ds-swatch__value">#89b4fa</span>
+          <span class="ds-swatch__target">Foco ativo, borda xfwm4 ativa e seleção</span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-accent-mint);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-accent-mint</span>
+          <span class="ds-swatch__value">#94e2d5</span>
+          <span class="ds-swatch__target">Identidade Mint Leve (Whisker / Prompt)</span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-fg-primary);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-fg-primary</span>
+          <span class="ds-swatch__value">#cdd6f4</span>
+          <span class="ds-swatch__target">xfwm4: <code>active_text_color=#cdd6f4</code></span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-fg-muted);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-fg-muted</span>
+          <span class="ds-swatch__value">#6c7086</span>
+          <span class="ds-swatch__target">xfwm4: <code>inactive_text_color=#6c7086</code></span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-state-success);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-state-success</span>
+          <span class="ds-swatch__value">#a6e3a1</span>
+          <span class="ds-swatch__target">Status OK / Botão Minimizar</span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-state-warning);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-state-warning</span>
+          <span class="ds-swatch__value">#f9e2af</span>
+          <span class="ds-swatch__target">Alerta / Botão Maximizar</span>
+        </div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background-color: var(--ds-state-danger);"></div>
+        <div class="ds-swatch__info">
+          <span class="ds-swatch__name">--ds-state-danger</span>
+          <span class="ds-swatch__value">#f38ba8</span>
+          <span class="ds-swatch__target">Erro / Botão Fechar (<code>close-active.xpm</code>)</span>
+        </div>
+      </div>
+    </section>
+
+    <h2 style="font-size: 16px; margin: 28px 0 14px 0;">Tipografia &amp; Geometria Centralizada</h2>
+    <section class="ds-grid">
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h3 class="ds-card__title">Tipografia UI (Pango / GTK3)</h3>
+          <span class="ds-atom-badge">--ds-font-sans</span>
+        </div>
+        <div class="ds-card__preview ds-card__preview--block">
+          <div style="font-size: var(--ds-text-lg); font-weight: 600; margin-bottom: 6px;">Título de Janela / Header (15px Bold)</div>
+          <div style="font-size: var(--ds-text-md); margin-bottom: 6px;">Texto padrão de widget e botões GTK3 (13px Regular)</div>
+          <div style="font-size: var(--ds-text-sm); color: var(--ds-fg-secondary);">Rótulos de painel XFCE e barra de título xfwm4 (12px)</div>
+        </div>
+        <pre class="ds-code">/* Mapeamento GTK3 */
+* {
+  font-family: "Inter", "Ubuntu", "Noto Sans", sans-serif;
+  font-size: 13px;
+}</pre>
+      </article>
+
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h3 class="ds-card__title">Tipografia Monospace (Terminal &amp; Relógio)</h3>
+          <span class="ds-atom-badge">--ds-font-mono</span>
+        </div>
+        <div class="ds-card__preview ds-card__preview--block" style="font-family: var(--ds-font-mono);">
+          <div style="font-size: var(--ds-text-md); color: var(--ds-accent-mint); margin-bottom: 6px;">h-pgy@mint-leve:~$ uv run pytest</div>
+          <div style="font-size: var(--ds-text-xs); color: var(--ds-fg-secondary);">Sex 27 Nov · 00:08 · BAT 94%</div>
+        </div>
+        <pre class="ds-code">/* Usado em xfce4-terminal e #clock-button */
+font-family: "JetBrains Mono", "Ubuntu Mono", monospace;</pre>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

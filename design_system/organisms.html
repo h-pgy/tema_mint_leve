@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Organismos — Design System (Tema Mint Leve)</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+</head>
+<body class="ds-showcase-body">
+  <nav class="ds-navbar">
+    <a href="index.html" class="ds-navbar__brand">
+      <span class="ds-navbar__brand-dot"></span>
+      <span>tema_mint_leve · Atomic Design System</span>
+    </a>
+    <div class="ds-navbar__links">
+      <a href="index.html" class="ds-navbar__link">Visão Geral</a>
+      <a href="tokens.html" class="ds-navbar__link">0. Tokens</a>
+      <a href="atoms.html" class="ds-navbar__link">1. Átomos</a>
+      <a href="molecules.html" class="ds-navbar__link">2. Moléculas</a>
+      <a href="organisms.html" class="ds-navbar__link is-current">3. Organismos</a>
+    </div>
+  </nav>
+
+  <main class="ds-container">
+    <header class="ds-page-header">
+      <div class="ds-page-header__eyebrow">Nível 3 · Showcase Real das Interfaces do Sistema</div>
+      <h1 class="ds-page-header__title">3. Organismos (Aplicações Reais dos Átomos e Moléculas)</h1>
+      <p class="ds-page-header__desc">
+        Esta página exibe tudo o que geramos de fato no sistema operacional combinando os Tokens, Átomos e Moléculas.
+        Sempre que uma spec com <code>requires_ui_mock: true</code> é aprovada e implementada, o organismo resultante
+        é catalogado aqui.
+      </p>
+    </header>
+
+    <!-- Organismo Completo 1: Simulação Integrada do Desktop Linux Mint XFCE -->
+    <section class="ds-grid ds-grid--full">
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Organismo Integrado: Desktop Linux Mint XFCE (Painel + Janela Ativa + Janela Backdrop)</h2>
+          <span class="ds-atom-badge ds-atom-badge--active">gtk.css + xfwm4 + xfce4-terminal</span>
+        </div>
+
+        <div class="ds-desktop-sim">
+          <!-- Organismo: xfce4-panel -->
+          <header class="ds-org-xfce-panel">
+            <div class="ds-mol-panel-launcher-group">
+              <button class="ds-mol-whisker-btn">❖ Mint Leve</button>
+              <span class="ds-atom-separator-v"></span>
+              <span class="ds-atom-badge ds-atom-badge--active">1: dev</span>
+              <span class="ds-atom-badge">2: web</span>
+              <span class="ds-atom-badge">3: sys</span>
+            </div>
+
+            <div class="ds-org-xfce-panel__center">
+              <div class="ds-mol-tasklist-item is-checked">▸ xfce4-terminal</div>
+              <div class="ds-mol-tasklist-item">Preferências do Tema</div>
+            </div>
+
+            <div class="ds-mol-panel-systray">
+              <span>Wi-Fi</span>
+              <span class="ds-atom-separator-v"></span>
+              <span style="color: var(--ds-state-success);">BAT 94%</span>
+              <span class="ds-atom-separator-v"></span>
+              <span>27 Nov · 00:08</span>
+            </div>
+          </header>
+
+          <!-- Área de Trabalho com 2 Janelas (Ativa + Backdrop) -->
+          <div class="ds-desktop-sim__workspace">
+            <!-- Organismo: Janela Ativa (Terminal) -->
+            <div class="ds-org-window">
+              <div class="ds-mol-xfwm-titlebar">
+                <span>xfce4-terminal — ~/projects/tema_mint_leve</span>
+                <div class="ds-mol-xfwm-titlebar__controls">
+                  <span class="ds-atom-win-ctrl ds-atom-win-ctrl--min"></span>
+                  <span class="ds-atom-win-ctrl ds-atom-win-ctrl--max"></span>
+                  <span class="ds-atom-win-ctrl ds-atom-win-ctrl--close"></span>
+                </div>
+              </div>
+              <div class="ds-org-terminal">
+                <div><span class="ds-org-terminal__prompt">h-pgy@mint-leve</span>:<span class="ds-org-terminal__cmd">~/projects/tema_mint_leve</span>$ uv run pytest</div>
+                <div style="color: var(--ds-fg-secondary);">======================== test session starts ========================</div>
+                <div>collected 12 items</div>
+                <div style="color: var(--ds-state-success); margin-top: 6px;">tests/test_rice_theme.py ....                                  [100%]</div>
+                <div style="color: var(--ds-state-success); font-weight: 600;">========================= 12 passed in 0.42s ========================</div>
+                <div style="margin-top: 8px;"><span class="ds-org-terminal__prompt">h-pgy@mint-leve</span>:<span class="ds-org-terminal__cmd">~/projects/tema_mint_leve</span>$ █</div>
+              </div>
+            </div>
+
+            <!-- Organismo: Janela Inativa (:backdrop) com Widgets GTK3 -->
+            <div class="ds-org-window is-backdrop">
+              <div class="ds-mol-xfwm-titlebar is-backdrop">
+                <span>Preferências do Tema (Inativa / :backdrop)</span>
+                <div class="ds-mol-xfwm-titlebar__controls">
+                  <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive"></span>
+                  <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive"></span>
+                  <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive"></span>
+                </div>
+              </div>
+              <div class="ds-org-window__body">
+                <div style="margin-bottom: 12px;">
+                  <label style="display: block; font-size: 12px; color: var(--ds-fg-secondary); margin-bottom: 4px;">Filtro de Módulos:</label>
+                  <input type="text" class="ds-atom-entry" value="rice.xfce_dark_mint" style="width: 100%;" readonly />
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                  <span style="font-size: 12px; color: var(--ds-fg-secondary);">Desativar compositor em bateria</span>
+                  <div class="ds-atom-switch ds-atom-switch--checked"><div class="ds-atom-switch__Knob"></div></div>
+                </div>
+                <div class="ds-atom-separator-h"></div>
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+                  <button class="ds-atom-btn">Cancelar</button>
+                  <button class="ds-atom-btn ds-atom-btn--primary">Aplicar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-card__meta">
+          <span><strong>Composição Atomic Design:</strong></span>
+          <span>• <strong>Tokens:</strong> <code>--ds-bg-panel</code>, <code>--ds-bg-surface</code>, <code>--ds-accent-primary</code>, <code>--ds-accent-mint</code>, <code>--ds-border-focus</code>, <code>--ds-border-inactive</code>.</span>
+          <span>• <strong>Átomos:</strong> <code>.ds-atom-btn</code>, <code>.ds-atom-entry</code>, <code>.ds-atom-switch</code>, <code>.ds-atom-badge</code>, <code>.ds-atom-win-ctrl</code>, <code>.ds-atom-separator-v/h</code>.</span>
+          <span>• <strong>Moléculas:</strong> <code>.ds-mol-xfwm-titlebar</code> (ativa e <code>.is-backdrop</code>), <code>.ds-mol-panel-launcher-group</code>, <code>.ds-mol-tasklist-item</code>, <code>.ds-mol-panel-systray</code>.</span>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

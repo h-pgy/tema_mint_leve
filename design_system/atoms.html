@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Átomos — Design System (Tema Mint Leve)</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+</head>
+<body class="ds-showcase-body">
+  <nav class="ds-navbar">
+    <a href="index.html" class="ds-navbar__brand">
+      <span class="ds-navbar__brand-dot"></span>
+      <span>tema_mint_leve · Atomic Design System</span>
+    </a>
+    <div class="ds-navbar__links">
+      <a href="index.html" class="ds-navbar__link">Visão Geral</a>
+      <a href="tokens.html" class="ds-navbar__link">0. Tokens</a>
+      <a href="atoms.html" class="ds-navbar__link is-current">1. Átomos</a>
+      <a href="molecules.html" class="ds-navbar__link">2. Moléculas</a>
+      <a href="organisms.html" class="ds-navbar__link">3. Organismos</a>
+    </div>
+  </nav>
+
+  <main class="ds-container">
+    <header class="ds-page-header">
+      <div class="ds-page-header__eyebrow">Nível 1 · Elementos Indivisíveis</div>
+      <h1 class="ds-page-header__title">1. Átomos (Widgets Base GTK3 &amp; xfwm4)</h1>
+      <p class="ds-page-header__desc">
+        Padrões simples e diretos dos menores elementos visuais do sistema. Cada átomo indica sua implementação CSS
+        no mock, quando deve ser usado e para qual seletor nativo do Linux Mint XFCE ele é portado.
+      </p>
+    </header>
+
+    <section class="ds-grid">
+      <!-- Átomo 1: Botões GTK3 -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Botões GTK3 (<code>.ds-atom-btn</code>)</h2>
+          <span class="ds-atom-badge">GTK3: button</span>
+        </div>
+        <div class="ds-card__preview">
+          <button class="ds-atom-btn">Padrão</button>
+          <button class="ds-atom-btn ds-atom-btn--primary">Primário</button>
+          <button class="ds-atom-btn ds-atom-btn--danger">Destrutivo</button>
+          <button class="ds-atom-btn ds-atom-btn--flat">Flat</button>
+          <button class="ds-atom-btn" disabled>Inativo</button>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Ações de janelas de diálogo, botões do painel (variante <code>--flat</code>) e confirmações.</span>
+          <span><strong>Destino no OS:</strong> <code>button</code>, <code>button.suggested-action</code>, <code>button.destructive-action</code>, <code>button.flat</code> e <code>button:disabled</code> em <code>~/.config/gtk-3.0/gtk.css</code>.</span>
+        </div>
+        <pre class="ds-code">&lt;button class="ds-atom-btn ds-atom-btn--primary"&gt;Salvar&lt;/button&gt;</pre>
+      </article>
+
+      <!-- Átomo 2: Campo de Entrada (Entry) -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Input / Entry (<code>.ds-atom-entry</code>)</h2>
+          <span class="ds-atom-badge">GTK3: entry</span>
+        </div>
+        <div class="ds-card__preview">
+          <input type="text" class="ds-atom-entry" value="Buscar aplicativo..." readonly />
+          <input type="text" class="ds-atom-entry is-focused" value="Foco ativo (:focus)" readonly />
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Barra de busca do Whisker Menu, caixas de diálogo e paths do Thunar.</span>
+          <span><strong>Destino no OS:</strong> <code>entry</code> e <code>entry:focus</code> (usa <code>box-shadow: inset</code> sem alterar <code>border-width</code> para evitar layout jitter).</span>
+        </div>
+        <pre class="ds-code">&lt;input class="ds-atom-entry is-focused" value="..." /&gt;</pre>
+      </article>
+
+      <!-- Átomo 3: Controles de Janela xfwm4 -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Controles de Janela (<code>.ds-atom-win-ctrl</code>)</h2>
+          <span class="ds-atom-badge ds-atom-badge--mint">xfwm4: *.xpm</span>
+        </div>
+        <div class="ds-card__preview">
+          <span class="ds-atom-win-ctrl ds-atom-win-ctrl--min" title="Minimizar (hide-active.xpm)"></span>
+          <span class="ds-atom-win-ctrl ds-atom-win-ctrl--max" title="Maximizar (maximize-active.xpm)"></span>
+          <span class="ds-atom-win-ctrl ds-atom-win-ctrl--close" title="Fechar (close-active.xpm)"></span>
+          <span class="ds-atom-separator-v"></span>
+          <span class="ds-atom-win-ctrl ds-atom-win-ctrl--inactive" title="Inativo (*-inactive.xpm)"></span>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Exclusivamente dentro da molécula de barra de título <code>.ds-mol-xfwm-titlebar</code>.</span>
+          <span><strong>Destino no OS:</strong> Bitmaps 12x12 em <code>~/.themes/&lt;Tema&gt;/xfwm4/{close,maximize,hide}-{active,inactive}.xpm</code>.</span>
+        </div>
+        <pre class="ds-code">&lt;span class="ds-atom-win-ctrl ds-atom-win-ctrl--close"&gt;&lt;/span&gt;</pre>
+      </article>
+
+      <!-- Átomo 4: Badges & Workspaces -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Badges / Pager (<code>.ds-atom-badge</code>)</h2>
+          <span class="ds-atom-badge">GTK3: .xfce4-panel</span>
+        </div>
+        <div class="ds-card__preview">
+          <span class="ds-atom-badge ds-atom-badge--active">1: dev</span>
+          <span class="ds-atom-badge">2: web</span>
+          <span class="ds-atom-badge">3: docs</span>
+          <span class="ds-atom-badge ds-atom-badge--mint">BAT 96%</span>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Indicadores de área de trabalho (Workspace Pager) e pílulas de status no painel.</span>
+          <span><strong>Destino no OS:</strong> <code>#pager-button</code> e widgets de status do <code>xfce4-panel</code>.</span>
+        </div>
+        <pre class="ds-code">&lt;span class="ds-atom-badge ds-atom-badge--active"&gt;1: dev&lt;/span&gt;</pre>
+      </article>
+
+      <!-- Átomo 5: Switch / Toggle -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Switch GTK3 (<code>.ds-atom-switch</code>)</h2>
+          <span class="ds-atom-badge">GTK3: switch</span>
+        </div>
+        <div class="ds-card__preview">
+          <div class="ds-atom-switch"><div class="ds-atom-switch__Knob"></div></div>
+          <div class="ds-atom-switch ds-atom-switch--checked"><div class="ds-atom-switch__Knob"></div></div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Telas de configuração GTK3 e toggles de energia/rede.</span>
+          <span><strong>Destino no OS:</strong> Nós <code>switch</code>, <code>switch:checked</code> e <code>switch slider</code> no <code>gtk.css</code>.</span>
+        </div>
+        <pre class="ds-code">&lt;div class="ds-atom-switch ds-atom-switch--checked"&gt;
+  &lt;div class="ds-atom-switch__Knob"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+      </article>
+
+      <!-- Átomo 6: Separadores -->
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">Separadores (<code>.ds-atom-separator-*</code>)</h2>
+          <span class="ds-atom-badge">GTK3: separator</span>
+        </div>
+        <div class="ds-card__preview">
+          <span>Item A</span>
+          <span class="ds-atom-separator-v"></span>
+          <span>Item B</span>
+          <div class="ds-atom-separator-h"></div>
+        </div>
+        <div class="ds-card__meta">
+          <span><strong>Quando usar:</strong> Divisão sutil de grupos no <code>xfce4-panel</code> ou listas de menus.</span>
+          <span><strong>Destino no OS:</strong> Nó <code>separator</code> em <code>~/.config/gtk-3.0/gtk.css</code>.</span>
+        </div>
+        <pre class="ds-code">&lt;span class="ds-atom-separator-v"&gt;&lt;/span&gt;</pre>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

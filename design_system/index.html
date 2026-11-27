@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System — Tema Mint Leve (Atomic Design)</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+</head>
+<body class="ds-showcase-body">
+  <!-- Barra de Navegação Global do Design System -->
+  <nav class="ds-navbar">
+    <a href="index.html" class="ds-navbar__brand">
+      <span class="ds-navbar__brand-dot"></span>
+      <span>tema_mint_leve · Atomic Design System</span>
+    </a>
+    <div class="ds-navbar__links">
+      <a href="index.html" class="ds-navbar__link is-current">Visão Geral</a>
+      <a href="tokens.html" class="ds-navbar__link">0. Tokens</a>
+      <a href="atoms.html" class="ds-navbar__link">1. Átomos</a>
+      <a href="molecules.html" class="ds-navbar__link">2. Moléculas</a>
+      <a href="organisms.html" class="ds-navbar__link">3. Organismos</a>
+    </div>
+  </nav>
+
+  <main class="ds-container">
+    <header class="ds-page-header">
+      <div class="ds-page-header__eyebrow">Portfólio &amp; Fonte Única da Verdade Visual</div>
+      <h1 class="ds-page-header__title">Atomic Design System — Linux Mint XFCE</h1>
+      <p class="ds-page-header__desc">
+        Catálogo vivo de Tokens, Átomos, Moléculas e Organismos do <strong>tema_mint_leve</strong>.
+        Todo mock criado na Etapa 1.5 (<code>sdd-ui-mock</code>) deve consultar este catálogo antes de criar
+        novos estilos e todo componente visual aprovado e implementado deve ser promovido para cá.
+      </p>
+    </header>
+
+    <section class="ds-grid">
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">0. Tokens (Cores &amp; Tipografia)</h2>
+          <span class="ds-atom-badge ds-atom-badge--mint">Fundação</span>
+        </div>
+        <div class="ds-card__meta">
+          <p>Paleta centralizada (Dark/Mint Leve), famílias tipográficas compatíveis com Pango e medidas de borda com mapeamento 1:1 para <code>@define-color</code> no <code>gtk.css</code> e <code>themerc</code> no <code>xfwm4</code>.</p>
+        </div>
+        <a href="tokens.html" class="ds-atom-btn ds-atom-btn--primary">Explorar Tokens →</a>
+      </article>
+
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">1. Átomos (Elementos Base)</h2>
+          <span class="ds-atom-badge">Widgets</span>
+        </div>
+        <div class="ds-card__meta">
+          <p>Botões GTK3 (<code>button</code>), campos de texto (<code>entry</code>), switches, badges de workspace, separadores e botões bitmap de janela (<code>xfwm4</code>).</p>
+        </div>
+        <a href="atoms.html" class="ds-atom-btn">Explorar Átomos →</a>
+      </article>
+
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">2. Moléculas (Componentes)</h2>
+          <span class="ds-atom-badge">Composição</span>
+        </div>
+        <div class="ds-card__meta">
+          <p>Barras de título <code>xfwm4</code> (ativas e inativas), botão Whisker Menu + Workspaces, itens de Tasklist, Systray + Relógio e notificações <code>xfce4-notifyd</code>.</p>
+        </div>
+        <a href="molecules.html" class="ds-atom-btn">Explorar Moléculas →</a>
+      </article>
+
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h2 class="ds-card__title">3. Organismos (Sistema Real)</h2>
+          <span class="ds-atom-badge ds-atom-badge--active">Showcase Final</span>
+        </div>
+        <div class="ds-card__meta">
+          <p>Onde aparecem todas as interfaces geradas no sistema: Painel XFCE completo, Janelas com bordas <code>xfwm4</code>, Terminal e simulação completa do Desktop.</p>
+        </div>
+        <a href="organisms.html" class="ds-atom-btn">Explorar Organismos →</a>
+      </article>
+    </section>
+
+    <section class="ds-card" style="margin-top: 24px;">
+      <div class="ds-card__header">
+        <h2 class="ds-card__title">Regras do Fluxo SDD + Atomic Design</h2>
+        <span class="ds-atom-badge ds-atom-badge--mint">Guardrails GTK3 / XFCE</span>
+      </div>
+      <div class="ds-card__meta">
+        <p><strong>1. Consulta Prévia Obrigatória:</strong> Antes de criar qualquer <code>referencias/mock.html</code>, o agente <code>sdd-ui-mock</code> importa <code>../../../../design_system/css/design-system.css</code> e reutiliza os Tokens, Átomos e Moléculas já existentes.</p>
+        <p><strong>2. Guardrails do Sistema Operacional:</strong> Nenhum componente em <code>design-system.css</code> usa propriedades irreais para o GTK3/XFCE (proibido <code>backdrop-filter: blur()</code>, <code>transform</code>, <code>mix-blend-mode</code> ou alteração de <code>padding</code>/<code>width</code> em <code>:hover</code>).</p>
+        <p><strong>3. Promoção Contínua:</strong> Sempre que um mock visual é aprovado e portado para o sistema, seus novos átomos, moléculas e o organismo final sobem para <code>design_system/css/design-system.css</code> e para as páginas deste showcase.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

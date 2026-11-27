@@ -1,0 +1,703 @@
+/* ==========================================================================
+   TEMA MINT LEVE — CENTRAL ATOMIC DESIGN SYSTEM CSS
+   --------------------------------------------------------------------------
+   Este arquivo é a Fonte Única da Verdade (Single Source of Truth) visual
+   do projeto. Ele é importado por:
+   1. Os showcases HTML em `design_system/*.html` (via Live Server)
+   2. Os mocks visuais de specs em `specs/<epico>/<spec>/referencias/mock.html`
+   
+   REGRA DE GUARDRAILS (GTK3 `GtkCssProvider` + XFCE `xfwm4`):
+   - PROIBIDO nos blocos [1] a [4]: backdrop-filter, filter: blur(),
+     mix-blend-mode, transform, animações contínuas ou mudança de geometria
+     (padding/border-width/width/height) em :hover/:focus.
+   ========================================================================== */
+
+/* ==========================================================================
+   [1. TOKENS] — Paleta de Cores, Tipografia, Bordas e Espaçamento
+   Mapeamento 1:1 com `@define-color` (gtk.css) e `themerc`/`.xpm` (xfwm4)
+   ========================================================================== */
+:root {
+  /* Superfícies e Fundos */
+  --ds-bg-base: #181825;           /* @define-color bg_base #181825; */
+  --ds-bg-surface: #1e1e2e;        /* @define-color bg_surface #1e1e2e; */
+  --ds-bg-elevated: #262639;       /* @define-color bg_elevated #262639; */
+  --ds-bg-overlay: #313244;        /* @define-color bg_overlay #313244; */
+  --ds-bg-panel: rgba(24, 24, 37, 0.94); /* @define-color bg_panel rgba(24,24,37,0.94); */
+
+  /* Tipografia e Ícones (Foreground) */
+  --ds-fg-primary: #cdd6f4;        /* @define-color fg_primary #cdd6f4; | active_text_color */
+  --ds-fg-secondary: #a6adc8;      /* @define-color fg_secondary #a6adc8; */
+  --ds-fg-muted: #6c7086;          /* @define-color fg_muted #6c7086; | inactive_text_color */
+  --ds-fg-on-accent: #11111b;      /* @define-color fg_on_accent #11111b; */
+
+  /* Cores de Destaque e Semânticas (Mint Leve Accent) */
+  --ds-accent-primary: #89b4fa;    /* @define-color accent_primary #89b4fa; */
+  --ds-accent-hover: #b4befe;      /* @define-color accent_hover #b4befe; */
+  --ds-accent-mint: #94e2d5;       /* @define-color accent_mint #94e2d5; */
+  --ds-state-success: #a6e3a1;     /* @define-color state_success #a6e3a1; */
+  --ds-state-warning: #f9e2af;     /* @define-color state_warning #f9e2af; */
+  --ds-state-danger: #f38ba8;      /* @define-color state_danger #f38ba8; */
+
+  /* Bordas e Janelas (xfwm4 & GTK3) */
+  --ds-border-subtle: #313244;     /* @define-color border_subtle #313244; */
+  --ds-border-focus: #89b4fa;      /* Borda de janela ativa no xfwm4 (.xpm) */
+  --ds-border-inactive: #262639;   /* Borda de janela inativa no xfwm4 (.xpm) */
+  --ds-titlebar-active: #1e1e2e;   /* title-1..5-active.xpm */
+  --ds-titlebar-inactive: #181825; /* title-1..5-inactive.xpm */
+
+  /* Tipografia Centralizada (Compatível com Pango / Linux Mint) */
+  --ds-font-sans: "Inter", "Ubuntu", "Cantarell", "Noto Sans", sans-serif;
+  --ds-font-mono: "JetBrains Mono", "Ubuntu Mono", "DejaVu Sans Mono", monospace;
+  --ds-text-xs: 11px;
+  --ds-text-sm: 12px;
+  --ds-text-md: 13px;
+  --ds-text-lg: 15px;
+
+  /* Geometria e Raios (GTK3 Widgets — xfwm4 usa canto reto/bitmap) */
+  --ds-radius-none: 0px;
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 6px;
+  --ds-border-width: 1px;
+  --ds-border-width-xfwm: 2px;
+
+  /* Transição Leve (Economia de CPU/Bateria) */
+  --ds-transition-fast: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+/* ==========================================================================
+   [2. ÁTOMOS] — Elementos Base Indivisíveis (Portáveis para GTK3 / xfwm4)
+   ========================================================================== */
+
+/* Átomo: Botão Base GTK3 (`button`) */
+.ds-atom-btn {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-md);
+  font-weight: 500;
+  color: var(--ds-fg-primary);
+  background-color: var(--ds-bg-elevated);
+  border: var(--ds-border-width) solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  padding: 5px 12px;
+  min-height: 28px;
+  min-width: 64px;
+  cursor: pointer;
+  transition: var(--ds-transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.ds-atom-btn:hover {
+  background-color: var(--ds-bg-overlay);
+  border-color: var(--ds-accent-primary);
+}
+
+.ds-atom-btn:active,
+.ds-atom-btn.is-active {
+  background-color: var(--ds-accent-primary);
+  color: var(--ds-fg-on-accent);
+  border-color: var(--ds-accent-primary);
+}
+
+.ds-atom-btn.ds-atom-btn--primary {
+  background-color: var(--ds-accent-primary);
+  color: var(--ds-fg-on-accent);
+  border-color: var(--ds-accent-primary);
+  font-weight: 600;
+}
+
+.ds-atom-btn.ds-atom-btn--primary:hover {
+  background-color: var(--ds-accent-hover);
+  border-color: var(--ds-accent-hover);
+}
+
+.ds-atom-btn.ds-atom-btn--danger {
+  background-color: transparent;
+  color: var(--ds-state-danger);
+  border-color: var(--ds-state-danger);
+}
+
+.ds-atom-btn.ds-atom-btn--danger:hover {
+  background-color: var(--ds-state-danger);
+  color: var(--ds-fg-on-accent);
+}
+
+.ds-atom-btn.ds-atom-btn--flat {
+  background-color: transparent;
+  border-color: transparent;
+  min-width: 28px;
+  padding: 4px 8px;
+}
+
+.ds-atom-btn.ds-atom-btn--flat:hover {
+  background-color: var(--ds-bg-overlay);
+}
+
+.ds-atom-btn:disabled,
+.ds-atom-btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Átomo: Campo de Entrada GTK3 (`entry`) */
+.ds-atom-entry {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-md);
+  color: var(--ds-fg-primary);
+  background-color: var(--ds-bg-base);
+  border: var(--ds-border-width) solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  padding: 5px 10px;
+  min-height: 28px;
+  min-width: 180px;
+  outline: none;
+  transition: var(--ds-transition-fast);
+}
+
+.ds-atom-entry:focus,
+.ds-atom-entry.is-focused {
+  border-color: var(--ds-border-focus);
+  box-shadow: inset 0 0 0 1px var(--ds-border-focus);
+}
+
+/* Átomo: Botões de Controle de Janela xfwm4 (`close/maximize/hide-active.xpm`) */
+.ds-atom-win-ctrl {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px; /* Quadrado levemente suavizado compatível com bitmap .xpm */
+  background-color: var(--ds-bg-overlay);
+  border: 1px solid var(--ds-border-subtle);
+}
+
+.ds-atom-win-ctrl--close {
+  background-color: var(--ds-state-danger);
+  border-color: var(--ds-state-danger);
+}
+
+.ds-atom-win-ctrl--max {
+  background-color: var(--ds-state-warning);
+  border-color: var(--ds-state-warning);
+}
+
+.ds-atom-win-ctrl--min {
+  background-color: var(--ds-state-success);
+  border-color: var(--ds-state-success);
+}
+
+.ds-atom-win-ctrl--inactive {
+  background-color: var(--ds-bg-overlay);
+  border-color: var(--ds-border-subtle);
+}
+
+/* Átomo: Badge / Indicador de Workspace ou Status */
+.ds-atom-badge {
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-text-xs);
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--ds-radius-sm);
+  background-color: var(--ds-bg-elevated);
+  color: var(--ds-fg-secondary);
+  border: 1px solid var(--ds-border-subtle);
+  display: inline-block;
+}
+
+.ds-atom-badge--active {
+  background-color: var(--ds-accent-primary);
+  color: var(--ds-fg-on-accent);
+  border-color: var(--ds-accent-primary);
+}
+
+.ds-atom-badge--mint {
+  background-color: rgba(148, 226, 213, 0.15);
+  color: var(--ds-accent-mint);
+  border-color: var(--ds-accent-mint);
+}
+
+/* Átomo: Switch / Toggle GTK3 (`switch`) */
+.ds-atom-switch {
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  height: 18px;
+  background-color: var(--ds-bg-overlay);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: 9px;
+  padding: 2px;
+}
+
+.ds-atom-switch__Knob {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--ds-fg-secondary);
+}
+
+.ds-atom-switch--checked {
+  background-color: var(--ds-accent-primary);
+  border-color: var(--ds-accent-primary);
+  justify-content: flex-end;
+}
+
+.ds-atom-switch--checked .ds-atom-switch__Knob {
+  background-color: var(--ds-fg-on-accent);
+}
+
+/* Átomo: Separador de Painel / Menu (`separator`) */
+.ds-atom-separator-v {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background-color: var(--ds-border-subtle);
+  margin: 0 4px;
+}
+
+.ds-atom-separator-h {
+  height: 1px;
+  width: 100%;
+  background-color: var(--ds-border-subtle);
+  margin: 8px 0;
+}
+
+/* ==========================================================================
+   [3. MOLÉCULAS] — Grupos Funcionais de Átomos (Portáveis para GTK3 / xfwm4)
+   ========================================================================== */
+
+/* Molécula: Barra de Título xfwm4 (`themerc` + `title-1..5-active.xpm`) */
+.ds-mol-xfwm-titlebar {
+  background-color: var(--ds-titlebar-active);
+  color: var(--ds-fg-primary);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-sm);
+  font-weight: 600;
+  min-height: 28px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--ds-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* xfwm4 usa cantos retos ou bitmap simples */
+  border-radius: var(--ds-radius-none);
+}
+
+.ds-mol-xfwm-titlebar.is-backdrop {
+  background-color: var(--ds-titlebar-inactive);
+  color: var(--ds-fg-muted);
+}
+
+.ds-mol-xfwm-titlebar__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* Mapeia para button_spacing=6 no themerc */
+}
+
+/* Molécula: Botão Whisker Menu + Workspaces (Esquerda do Painel XFCE) */
+.ds-mol-panel-launcher-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ds-mol-whisker-btn {
+  background-color: var(--ds-bg-elevated);
+  color: var(--ds-accent-mint);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  padding: 3px 10px;
+  min-height: 24px;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-sm);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-mol-whisker-btn:hover {
+  background-color: var(--ds-bg-overlay);
+  border-color: var(--ds-accent-mint);
+}
+
+/* Molécula: Item da Tasklist do Painel (`.xfce4-panel .tasklist .toggle`) */
+.ds-mol-tasklist-item {
+  background-color: transparent;
+  color: var(--ds-fg-secondary);
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--ds-radius-sm);
+  padding: 3px 12px;
+  min-height: 24px;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-mol-tasklist-item:hover {
+  background-color: var(--ds-bg-elevated);
+  color: var(--ds-fg-primary);
+}
+
+.ds-mol-tasklist-item.is-checked {
+  background-color: var(--ds-bg-elevated);
+  color: var(--ds-fg-primary);
+  border-bottom-color: var(--ds-accent-primary);
+  font-weight: 600;
+}
+
+/* Molécula: Systray + Relógio (`#clock-button` + indicadores) */
+.ds-mol-panel-systray {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 8px;
+  background-color: var(--ds-bg-elevated);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-text-xs);
+  color: var(--ds-fg-primary);
+  min-height: 24px;
+}
+
+/* Molécula: Notificação Leve (`xfce4-notifyd`) */
+.ds-mol-notification {
+  background-color: var(--ds-bg-surface);
+  color: var(--ds-fg-primary);
+  border: 1px solid var(--ds-accent-primary);
+  border-radius: var(--ds-radius-md);
+  padding: 10px 14px;
+  min-width: 260px;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-sm);
+}
+
+.ds-mol-notification__title {
+  font-weight: 600;
+  color: var(--ds-accent-mint);
+  margin-bottom: 3px;
+}
+
+/* ==========================================================================
+   [4. ORGANISMOS] — Interfaces Completas do Sistema (Painel, Janelas, Desktop)
+   ========================================================================== */
+
+/* Organismo 1: Painel Superior Completo (`xfce4-panel`) */
+.ds-org-xfce-panel {
+  background-color: var(--ds-bg-panel);
+  color: var(--ds-fg-primary);
+  border-bottom: 1px solid var(--ds-border-subtle);
+  min-height: 30px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--ds-font-sans);
+}
+
+.ds-org-xfce-panel__center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Organismo 2: Janela Completa gerenciada pelo xfwm4 (Ativa ou Backdrop) */
+.ds-org-window {
+  background-color: var(--ds-bg-surface);
+  color: var(--ds-fg-primary);
+  border: var(--ds-border-width-xfwm) solid var(--ds-border-focus);
+  border-radius: var(--ds-radius-none);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ds-org-window.is-backdrop {
+  border-color: var(--ds-border-inactive);
+  background-color: var(--ds-bg-base);
+}
+
+.ds-org-window__body {
+  padding: 14px;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-md);
+}
+
+/* Organismo 3: Janela de Terminal (`xfce4-terminal`) */
+.ds-org-terminal {
+  background-color: var(--ds-bg-base);
+  color: var(--ds-fg-primary);
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-text-sm);
+  padding: 14px;
+  line-height: 1.55;
+}
+
+.ds-org-terminal__prompt {
+  color: var(--ds-accent-mint);
+  font-weight: 600;
+}
+
+.ds-org-terminal__cmd {
+  color: var(--ds-accent-primary);
+}
+
+/* ==========================================================================
+   [5. SHOWCASE SHELL & NAVEGAÇÃO] — Apenas para visualização no Live Server
+   (NÃO é portado para o sistema operacional)
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+body.ds-showcase-body {
+  margin: 0;
+  padding: 0;
+  background-color: #11111b;
+  color: var(--ds-fg-primary);
+  font-family: var(--ds-font-sans);
+  line-height: 1.5;
+}
+
+.ds-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(17, 17, 27, 0.96);
+  border-bottom: 1px solid var(--ds-border-subtle);
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ds-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ds-fg-primary);
+  text-decoration: none;
+}
+
+.ds-navbar__brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: var(--ds-accent-mint);
+}
+
+.ds-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ds-navbar__link {
+  color: var(--ds-fg-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--ds-radius-sm);
+  border: 1px solid transparent;
+  transition: var(--ds-transition-fast);
+}
+
+.ds-navbar__link:hover {
+  color: var(--ds-fg-primary);
+  background-color: var(--ds-bg-surface);
+  border-color: var(--ds-border-subtle);
+}
+
+.ds-navbar__link.is-current {
+  color: var(--ds-fg-on-accent);
+  background-color: var(--ds-accent-mint);
+  font-weight: 600;
+}
+
+.ds-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.ds-page-header {
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--ds-border-subtle);
+}
+
+.ds-page-header__eyebrow {
+  font-family: var(--ds-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ds-accent-mint);
+  margin-bottom: 6px;
+}
+
+.ds-page-header__title {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  color: var(--ds-fg-primary);
+}
+
+.ds-page-header__desc {
+  margin: 0;
+  color: var(--ds-fg-secondary);
+  font-size: 14px;
+  max-width: 780px;
+}
+
+.ds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.ds-grid--full {
+  grid-template-columns: 1fr;
+}
+
+.ds-card {
+  background-color: var(--ds-bg-surface);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ds-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ds-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ds-fg-primary);
+}
+
+.ds-card__preview {
+  background-color: #11111b;
+  border: 1px dashed var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ds-card__preview--block {
+  display: block;
+}
+
+.ds-card__meta {
+  font-size: 12px;
+  color: var(--ds-fg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ds-card__meta strong {
+  color: var(--ds-fg-primary);
+}
+
+.ds-code {
+  font-family: var(--ds-font-mono);
+  font-size: 11px;
+  background-color: var(--ds-bg-base);
+  color: var(--ds-accent-mint);
+  padding: 10px 12px;
+  border-radius: var(--ds-radius-sm);
+  border: 1px solid var(--ds-border-subtle);
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre;
+}
+
+.ds-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.ds-swatch {
+  background-color: var(--ds-bg-surface);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  overflow: hidden;
+}
+
+.ds-swatch__color {
+  height: 52px;
+  border-bottom: 1px solid var(--ds-border-subtle);
+}
+
+.ds-swatch__info {
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+.ds-swatch__name {
+  font-family: var(--ds-font-mono);
+  font-weight: 600;
+  color: var(--ds-fg-primary);
+  display: block;
+}
+
+.ds-swatch__value {
+  font-family: var(--ds-font-mono);
+  font-size: 11px;
+  color: var(--ds-accent-mint);
+}
+
+.ds-swatch__target {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--ds-fg-muted);
+}
+
+.ds-desktop-sim {
+  background-color: #11111b;
+  background-image: radial-gradient(rgba(137, 180, 250, 0.08) 1px, transparent 0);
+  background-size: 20px 20px;
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-md);
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-desktop-sim__workspace {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .ds-desktop-sim__workspace {
+    grid-template-columns: 1fr;
+  }
+}
