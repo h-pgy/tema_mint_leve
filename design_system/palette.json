@@ -1,0 +1,223 @@
+{
+  "name": "Tema Mint Leve — Dark Mint Palette",
+  "version": "1.0.0",
+  "description": "Fonte Única da Verdade (Single Source of Truth) da paleta de cores do tema_mint_leve. Mapeamento 1:1 para CSS Custom Properties (--ds-*), GTK3 (@define-color em gtk.css) e XFCE Window Manager (xfwm4/themerc + bitmaps .xpm).",
+  "categories": [
+    {
+      "id": "surfaces",
+      "title": "Superfícies e Fundos (Backgrounds)",
+      "description": "Camadas de profundidade para janelas GTK3, terminal, menus e barra superior xfce4-panel.",
+      "colors": [
+        {
+          "id": "bg_base",
+          "name": "Background Base",
+          "css_var": "--ds-bg-base",
+          "value": "#181825",
+          "gtk_define": "@define-color bg_base #181825;",
+          "xfwm_target": "title-1..5-inactive.xpm (fundo barra inativa)",
+          "usage": "Fundo principal do xfce4-terminal, inputs (entry) e janelas em estado inativo (:backdrop)."
+        },
+        {
+          "id": "bg_surface",
+          "name": "Background Surface",
+          "css_var": "--ds-bg-surface",
+          "value": "#1e1e2e",
+          "gtk_define": "@define-color bg_surface #1e1e2e;",
+          "xfwm_target": "title-1..5-active.xpm (fundo barra ativa)",
+          "usage": "Superfície padrão de janelas GTK3 ativas, caixas de diálogo e notificações (xfce4-notifyd)."
+        },
+        {
+          "id": "bg_elevated",
+          "name": "Background Elevated",
+          "css_var": "--ds-bg-elevated",
+          "value": "#262639",
+          "gtk_define": "@define-color bg_elevated #262639;",
+          "xfwm_target": "N/A (Widget GTK3)",
+          "usage": "Botões padrão, badges de workspace, pílula da systray e item ativo da tasklist."
+        },
+        {
+          "id": "bg_overlay",
+          "name": "Background Overlay / Hover",
+          "css_var": "--ds-bg-overlay",
+          "value": "#313244",
+          "gtk_define": "@define-color bg_overlay #313244;",
+          "xfwm_target": "button-inactive.xpm",
+          "usage": "Estado :hover de botões/menus, switches desligados e elementos flutuantes."
+        },
+        {
+          "id": "bg_panel",
+          "name": "Panel Background (Alpha)",
+          "css_var": "--ds-bg-panel",
+          "value": "rgba(24, 24, 37, 0.94)",
+          "hex_fallback": "#181825",
+          "gtk_define": "@define-color bg_panel rgba(24, 24, 37, 0.94);",
+          "xfwm_target": "N/A (.xfce4-panel)",
+          "usage": "Fundo translúcido leve (sem blur para economizar bateria/GPU) do painel superior xfce4-panel."
+        }
+      ]
+    },
+    {
+      "id": "foreground",
+      "title": "Tipografia e Ícones (Foreground)",
+      "description": "Hierarquia de contraste textual para leitura confortável e clara distinção entre janela focada e janela em segundo plano.",
+      "colors": [
+        {
+          "id": "fg_primary",
+          "name": "Foreground Primary",
+          "css_var": "--ds-fg-primary",
+          "value": "#cdd6f4",
+          "gtk_define": "@define-color fg_primary #cdd6f4;",
+          "xfwm_target": "active_text_color=#cdd6f4 (themerc)",
+          "usage": "Texto principal de janelas ativas, rótulos de botões, terminal e relógio do painel."
+        },
+        {
+          "id": "fg_secondary",
+          "name": "Foreground Secondary",
+          "css_var": "--ds-fg-secondary",
+          "value": "#a6adc8",
+          "gtk_define": "@define-color fg_secondary #a6adc8;",
+          "xfwm_target": "N/A (GTK3 labels)",
+          "usage": "Rótulos secundários, itens de tasklist não focados, descrições e metadados."
+        },
+        {
+          "id": "fg_muted",
+          "name": "Foreground Muted / Backdrop",
+          "css_var": "--ds-fg-muted",
+          "value": "#6c7086",
+          "gtk_define": "@define-color fg_muted #6c7086;",
+          "xfwm_target": "inactive_text_color=#6c7086 (themerc)",
+          "usage": "Título de janelas inativas (:backdrop), placeholders e textos desabilitados."
+        },
+        {
+          "id": "fg_on_accent",
+          "name": "Foreground On Accent",
+          "css_var": "--ds-fg-on-accent",
+          "value": "#11111b",
+          "gtk_define": "@define-color fg_on_accent #11111b;",
+          "xfwm_target": "N/A (Contraste sobre botões primários)",
+          "usage": "Texto escuro de alto contraste aplicado sobre fundos --ds-accent-primary, --ds-accent-mint ou estados ativos."
+        }
+      ]
+    },
+    {
+      "id": "accents",
+      "title": "Destaques e Identidade (Mint Leve Accents)",
+      "description": "Cores de assinatura visual do rice: azul suave para foco operacional e verde-menta para a identidade Linux Mint.",
+      "colors": [
+        {
+          "id": "accent_primary",
+          "name": "Accent Primary (Focus Blue)",
+          "css_var": "--ds-accent-primary",
+          "value": "#89b4fa",
+          "gtk_define": "@define-color accent_primary #89b4fa;",
+          "xfwm_target": "left/right/bottom-active.xpm (borda ativa)",
+          "usage": "Cor primária de foco, botões .suggested-action, workspace ativo, indicador inferior da tasklist e switches ligados."
+        },
+        {
+          "id": "accent_hover",
+          "name": "Accent Hover (Lavender Blue)",
+          "css_var": "--ds-accent-hover",
+          "value": "#b4befe",
+          "gtk_define": "@define-color accent_hover #b4befe;",
+          "xfwm_target": "N/A (GTK3 :hover)",
+          "usage": "Estado :hover para botões primários e links interativos."
+        },
+        {
+          "id": "accent_mint",
+          "name": "Accent Mint (Mint Identity)",
+          "css_var": "--ds-accent-mint",
+          "value": "#94e2d5",
+          "gtk_define": "@define-color accent_mint #94e2d5;",
+          "xfwm_target": "N/A (Whisker / Terminal)",
+          "usage": "Identidade do Tema Mint Leve: botão Whisker Menu, prompt do terminal, títulos de notificação e badges especiais."
+        }
+      ]
+    },
+    {
+      "id": "semantic",
+      "title": "Estados Semânticos e Controles de Janela",
+      "description": "Feedback visual de sucesso, alerta e erro, mapeado também para os bitmaps de controle do xfwm4 (minimizar, maximizar, fechar).",
+      "colors": [
+        {
+          "id": "state_success",
+          "name": "State Success / Minimize",
+          "css_var": "--ds-state-success",
+          "value": "#a6e3a1",
+          "gtk_define": "@define-color state_success #a6e3a1;",
+          "xfwm_target": "hide-active.xpm (botão minimizar)",
+          "usage": "Indicador de bateria saudável, testes passando no terminal e controle de minimizar janela."
+        },
+        {
+          "id": "state_warning",
+          "name": "State Warning / Maximize",
+          "css_var": "--ds-state-warning",
+          "value": "#f9e2af",
+          "gtk_define": "@define-color state_warning #f9e2af;",
+          "xfwm_target": "maximize-active.xpm (botão maximizar)",
+          "usage": "Avisos de atenção, bateria moderada e controle de maximizar janela."
+        },
+        {
+          "id": "state_danger",
+          "name": "State Danger / Close",
+          "css_var": "--ds-state-danger",
+          "value": "#f38ba8",
+          "gtk_define": "@define-color state_danger #f38ba8;",
+          "xfwm_target": "close-active.xpm (botão fechar)",
+          "usage": "Ações destrutivas (button.destructive-action), alertas críticos e controle de fechar janela."
+        }
+      ]
+    },
+    {
+      "id": "borders_windows",
+      "title": "Bordas e Decoração de Janelas (xfwm4 & GTK3)",
+      "description": "Tokens dedicados ao contorno estrutural de widgets e janelas gerenciadas pelo xfwm4.",
+      "colors": [
+        {
+          "id": "border_subtle",
+          "name": "Border Subtle",
+          "css_var": "--ds-border-subtle",
+          "value": "#313244",
+          "gtk_define": "@define-color border_subtle #313244;",
+          "xfwm_target": "Divisores internos de barra de título",
+          "usage": "Contorno discreto de 1px em botões, inputs, cards, separadores e borda inferior do painel XFCE."
+        },
+        {
+          "id": "border_focus",
+          "name": "Window Border Active (Focus)",
+          "css_var": "--ds-border-focus",
+          "value": "#89b4fa",
+          "gtk_define": "@define-color border_focus #89b4fa;",
+          "xfwm_target": "left/right/bottom-active.xpm (2px)",
+          "usage": "Borda externa de 2px da janela ativa no xfwm4 e contorno de inputs com foco (:focus)."
+        },
+        {
+          "id": "border_inactive",
+          "name": "Window Border Inactive",
+          "css_var": "--ds-border-inactive",
+          "value": "#262639",
+          "gtk_define": "@define-color border_inactive #262639;",
+          "xfwm_target": "left/right/bottom-inactive.xpm (2px)",
+          "usage": "Borda externa de 2px de janelas em segundo plano (:backdrop) no xfwm4."
+        },
+        {
+          "id": "titlebar_active",
+          "name": "Titlebar Active Fill",
+          "css_var": "--ds-titlebar-active",
+          "value": "#1e1e2e",
+          "gtk_define": "@define-color titlebar_active #1e1e2e;",
+          "xfwm_target": "title-1..5-active.xpm, top-left/right-active.xpm",
+          "usage": "Preenchimento da barra de título de janelas focadas."
+        },
+        {
+          "id": "titlebar_inactive",
+          "name": "Titlebar Inactive Fill",
+          "css_var": "--ds-titlebar-inactive",
+          "value": "#181825",
+          "gtk_define": "@define-color titlebar_inactive #181825;",
+          "xfwm_target": "title-1..5-inactive.xpm, top-left/right-inactive.xpm",
+          "usage": "Preenchimento da barra de título de janelas inativas (:backdrop)."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paleta de Cores (JSON) — Design System (Tema Mint Leve)</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+  <style>
+    /* Estilos exclusivos do Showcase da Paleta (Apenas Visualização) */
+    .ds-palette-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 14px 18px;
+      background-color: var(--ds-bg-surface);
+      border: 1px solid var(--ds-border-subtle);
+      border-radius: var(--ds-radius-md);
+    }
+
+    .ds-palette-toolbar__filters {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ds-palette-section {
+      margin-bottom: 36px;
+    }
+
+    .ds-palette-section__header {
+      margin-bottom: 14px;
+    }
+
+    .ds-palette-section__title {
+      margin: 0 0 4px 0;
+      font-size: 17px;
+      color: var(--ds-fg-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ds-palette-section__desc {
+      margin: 0;
+      font-size: 13px;
+      color: var(--ds-fg-secondary);
+    }
+
+    .ds-palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 16px;
+    }
+
+    .ds-palette-card {
+      background-color: var(--ds-bg-surface);
+      border: 1px solid var(--ds-border-subtle);
+      border-radius: var(--ds-radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--ds-transition-fast);
+    }
+
+    .ds-palette-card:hover {
+      border-color: var(--ds-accent-primary);
+    }
+
+    .ds-palette-card__preview {
+      height: 84px;
+      border-bottom: 1px solid var(--ds-border-subtle);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 10px 14px;
+      position: relative;
+    }
+
+    .ds-palette-card__pill {
+      font-family: var(--ds-font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--ds-radius-sm);
+      background-color: rgba(17, 17, 27, 0.82);
+      color: var(--ds-fg-primary);
+      border: 1px solid var(--ds-border-subtle);
+      cursor: pointer;
+    }
+
+    .ds-palette-card__pill:hover {
+      border-color: var(--ds-accent-mint);
+      color: var(--ds-accent-mint);
+    }
+
+    .ds-palette-card__body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .ds-palette-card__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ds-fg-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ds-palette-card__usage {
+      font-size: 12px;
+      color: var(--ds-fg-secondary);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .ds-palette-card__mappings {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--ds-border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-family: var(--ds-font-mono);
+      font-size: 11px;
+    }
+
+    .ds-palette-card__map-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background-color: var(--ds-bg-base);
+      padding: 4px 8px;
+      border-radius: var(--ds-radius-sm);
+      border: 1px solid var(--ds-border-subtle);
+      cursor: pointer;
+    }
+
+    .ds-palette-card__map-row:hover {
+      border-color: var(--ds-accent-primary);
+    }
+
+    .ds-palette-card__map-label {
+      color: var(--ds-fg-muted);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .ds-palette-card__map-val {
+      color: var(--ds-accent-mint);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ds-contrast-matrix {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .ds-contrast-sample {
+      padding: 14px;
+      border-radius: var(--ds-radius-sm);
+      border: 1px solid var(--ds-border-subtle);
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ds-copy-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 200;
+      display: none;
+    }
+  </style>
+</head>
+<body class="ds-showcase-body">
+  <nav class="ds-navbar">
+    <a href="index.html" class="ds-navbar__brand">
+      <span class="ds-navbar__brand-dot"></span>
+      <span>tema_mint_leve · Atomic Design System</span>
+    </a>
+    <div class="ds-navbar__links">
+      <a href="index.html" class="ds-navbar__link">Visão Geral</a>
+      <a href="palette.html" class="ds-navbar__link is-current">Paleta (JSON)</a>
+      <a href="tokens.html" class="ds-navbar__link">0. Tokens</a>
+      <a href="atoms.html" class="ds-navbar__link">1. Átomos</a>
+      <a href="molecules.html" class="ds-navbar__link">2. Moléculas</a>
+      <a href="organisms.html" class="ds-navbar__link">3. Organismos</a>
+    </div>
+  </nav>
+
+  <main class="ds-container">
+    <header class="ds-page-header">
+      <div class="ds-page-header__eyebrow">Single Source of Truth · design_system/palette.json</div>
+      <h1 class="ds-page-header__title">Showcase da Paleta de Cores — Tema Mint Leve</h1>
+      <p class="ds-page-header__desc">
+        Visualização dedicada e interativa da paleta de cores centralizada em
+        <code><a href="palette.json" style="color: var(--ds-accent-mint);">design_system/palette.json</a></code>.
+        Clique em qualquer código Hex, variável CSS (<code>--ds-*</code>) ou diretiva GTK3 (<code>@define-color</code>) para copiar.
+      </p>
+    </header>
+
+    <!-- Barra de Filtro e Busca -->
+    <section class="ds-palette-toolbar">
+      <div class="ds-palette-toolbar__filters" id="category-filters">
+        <button class="ds-atom-btn ds-atom-btn--primary" data-filter="all">Todas (20)</button>
+        <button class="ds-atom-btn" data-filter="surfaces">Superfícies</button>
+        <button class="ds-atom-btn" data-filter="foreground">Tipografia (FG)</button>
+        <button class="ds-atom-btn" data-filter="accents">Accents Mint</button>
+        <button class="ds-atom-btn" data-filter="semantic">Semânticas</button>
+        <button class="ds-atom-btn" data-filter="borders_windows">Bordas &amp; xfwm4</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <input
+          type="text"
+          id="palette-search"
+          class="ds-atom-entry"
+          placeholder="Filtrar cor, hex ou token..."
+          style="min-width: 230px;"
+        />
+        <a href="palette.json" target="_blank" class="ds-atom-btn">Ver JSON Bruto</a>
+      </div>
+    </section>
+
+    <!-- Container renderizado a partir de palette.json -->
+    <div id="palette-showcase-root"></div>
+
+    <!-- Matriz Rápida de Contraste e Combinações -->
+    <section class="ds-card" style="margin-top: 28px;">
+      <div class="ds-card__header">
+        <h2 class="ds-card__title">Prova de Contraste &amp; Harmonia Visual (Superfícies × Textos e Accents)</h2>
+        <span class="ds-atom-badge ds-atom-badge--mint">Legibilidade GTK3 / Terminal</span>
+      </div>
+      <div class="ds-contrast-matrix">
+        <div class="ds-contrast-sample" style="background-color: var(--ds-bg-base); color: var(--ds-fg-primary);">
+          <strong>bg_base (#181825)</strong>
+          <span>Texto Primário (#cdd6f4)</span>
+          <span style="color: var(--ds-accent-mint); font-family: var(--ds-font-mono);">Prompt Mint (#94e2d5)</span>
+        </div>
+        <div class="ds-contrast-sample" style="background-color: var(--ds-bg-surface); color: var(--ds-fg-primary);">
+          <strong>bg_surface (#1e1e2e)</strong>
+          <span>Texto Primário (#cdd6f4)</span>
+          <span style="color: var(--ds-fg-secondary);">Texto Secundário (#a6adc8)</span>
+        </div>
+        <div class="ds-contrast-sample" style="background-color: var(--ds-bg-elevated); color: var(--ds-fg-primary);">
+          <strong>bg_elevated (#262639)</strong>
+          <span>Botão / Card Elevado</span>
+          <span style="color: var(--ds-accent-primary); font-family: var(--ds-font-mono);">Accent Focus (#89b4fa)</span>
+        </div>
+        <div class="ds-contrast-sample" style="background-color: var(--ds-accent-primary); color: var(--ds-fg-on-accent);">
+          <strong>accent_primary (#89b4fa)</strong>
+          <span>Texto fg_on_accent (#11111b)</span>
+          <span style="font-weight: 600;">Botão Primário / Workspace Ativo</span>
+        </div>
+        <div class="ds-contrast-sample" style="background-color: var(--ds-accent-mint); color: var(--ds-fg-on-accent);">
+          <strong>accent_mint (#94e2d5)</strong>
+          <span>Texto fg_on_accent (#11111b)</span>
+          <span style="font-weight: 600;">Identidade Mint Leve</span>
+        </div>
+        <div class="ds-contrast-sample" style="background-color: var(--ds-titlebar-inactive); color: var(--ds-fg-muted); border-color: var(--ds-border-inactive);">
+          <strong>titlebar_inactive (#181825)</strong>
+          <span>Texto fg_muted (#6c7086)</span>
+          <span>Janela Inativa (:backdrop)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exportação Rápida Gerada a partir do JSON -->
+    <section class="ds-grid" style="margin-top: 24px;">
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h3 class="ds-card__title">Bloco GTK3 Gerado (<code>~/.config/gtk-3.0/gtk.css</code>)</h3>
+          <span class="ds-atom-badge">@define-color</span>
+        </div>
+        <pre class="ds-code" id="gtk-export-code"></pre>
+      </article>
+
+      <article class="ds-card">
+        <div class="ds-card__header">
+          <h3 class="ds-card__title">Bloco CSS Variables (<code>design-system.css</code>)</h3>
+          <span class="ds-atom-badge">:root</span>
+        </div>
+        <pre class="ds-code" id="css-export-code"></pre>
+      </article>
+    </section>
+  </main>
+
+  <!-- Toast de cópia -->
+  <div id="copy-toast" class="ds-mol-notification ds-copy-toast">
+    <div class="ds-mol-notification__title">Copiado para a área de transferência</div>
+    <div id="copy-toast-text">--ds-accent-mint</div>
+  </div>
+
+  <script>
+    // Fallback embutido idêntico a design_system/palette.json para funcionar mesmo via file:// sem servidor HTTP
+    const FALLBACK_PALETTE = {
+      name: "Tema Mint Leve — Dark Mint Palette",
+      version: "1.0.0",
+      categories: [
+        {
+          id: "surfaces",
+          title: "Superfícies e Fundos (Backgrounds)",
+          description: "Camadas de profundidade para janelas GTK3, terminal, menus e barra superior xfce4-panel.",
+          colors: [
+            {
+              id: "bg_base",
+              name: "Background Base",
+              css_var: "--ds-bg-base",
+              value: "#181825",
+              gtk_define: "@define-color bg_base #181825;",
+              xfwm_target: "title-1..5-inactive.xpm (fundo barra inativa)",
+              usage: "Fundo principal do xfce4-terminal, inputs (entry) e janelas em estado inativo (:backdrop)."
+            },
+            {
+              id: "bg_surface",
+              name: "Background Surface",
+              css_var: "--ds-bg-surface",
+              value: "#1e1e2e",
+              gtk_define: "@define-color bg_surface #1e1e2e;",
+              xfwm_target: "title-1..5-active.xpm (fundo barra ativa)",
+              usage: "Superfície padrão de janelas GTK3 ativas, caixas de diálogo e notificações (xfce4-notifyd)."
+            },
+            {
+              id: "bg_elevated",
+              name: "Background Elevated",
+              css_var: "--ds-bg-elevated",
+              value: "#262639",
+              gtk_define: "@define-color bg_elevated #262639;",
+              xfwm_target: "N/A (Widget GTK3)",
+              usage: "Botões padrão, badges de workspace, pílula da systray e item ativo da tasklist."
+            },
+            {
+              id: "bg_overlay",
+              name: "Background Overlay / Hover",
+              css_var: "--ds-bg-overlay",
+              value: "#313244",
+              gtk_define: "@define-color bg_overlay #313244;",
+              xfwm_target: "button-inactive.xpm",
+              usage: "Estado :hover de botões/menus, switches desligados e elementos flutuantes."
+            },
+            {
+              id: "bg_panel",
+              name: "Panel Background (Alpha)",
+              css_var: "--ds-bg-panel",
+              value: "rgba(24, 24, 37, 0.94)",
+              gtk_define: "@define-color bg_panel rgba(24, 24, 37, 0.94);",
+              xfwm_target: "N/A (.xfce4-panel)",
+              usage: "Fundo translúcido leve (sem blur para economizar bateria/GPU) do painel superior xfce4-panel."
+            }
+          ]
+        },
+        {
+          id: "foreground",
+          title: "Tipografia e Ícones (Foreground)",
+          description: "Hierarquia de contraste textual para leitura confortável e clara distinção entre janela focada e janela em segundo plano.",
+          colors: [
+            {
+              id: "fg_primary",
+              name: "Foreground Primary",
+              css_var: "--ds-fg-primary",
+              value: "#cdd6f4",
+              gtk_define: "@define-color fg_primary #cdd6f4;",
+              xfwm_target: "active_text_color=#cdd6f4 (themerc)",
+              usage: "Texto principal de janelas ativas, rótulos de botões, terminal e relógio do painel."
+            },
+            {
+              id: "fg_secondary",
+              name: "Foreground Secondary",
+              css_var: "--ds-fg-secondary",
+              value: "#a6adc8",
+              gtk_define: "@define-color fg_secondary #a6adc8;",
+              xfwm_target: "N/A (GTK3 labels)",
+              usage: "Rótulos secundários, itens de tasklist não focados, descrições e metadados."
+            },
+            {
+              id: "fg_muted",
+              name: "Foreground Muted / Backdrop",
+              css_var: "--ds-fg-muted",
+              value: "#6c7086",
+              gtk_define: "@define-color fg_muted #6c7086;",
+              xfwm_target: "inactive_text_color=#6c7086 (themerc)",
+              usage: "Título de janelas inativas (:backdrop), placeholders e textos desabilitados."
+            },
+            {
+              id: "fg_on_accent",
+              name: "Foreground On Accent",
+              css_var: "--ds-fg-on-accent",
+              value: "#11111b",
+              gtk_define: "@define-color fg_on_accent #11111b;",
+              xfwm_target: "N/A (Contraste sobre botões primários)",
+              usage: "Texto escuro de alto contraste aplicado sobre fundos --ds-accent-primary, --ds-accent-mint ou estados ativos."
+            }
+          ]
+        },
+        {
+          id: "accents",
+          title: "Destaques e Identidade (Mint Leve Accents)",
+          description: "Cores de assinatura visual do rice: azul suave para foco operacional e verde-menta para a identidade Linux Mint.",
+          colors: [
+            {
+              id: "accent_primary",
+              name: "Accent Primary (Focus Blue)",
+              css_var: "--ds-accent-primary",
+              value: "#89b4fa",
+              gtk_define: "@define-color accent_primary #89b4fa;",
+              xfwm_target: "left/right/bottom-active.xpm (borda ativa)",
+              usage: "Cor primária de foco, botões .suggested-action, workspace ativo, indicador inferior da tasklist e switches ligados."
+            },
+            {
+              id: "accent_hover",
+              name: "Accent Hover (Lavender Blue)",
+              css_var: "--ds-accent-hover",
+              value: "#b4befe",
+              gtk_define: "@define-color accent_hover #b4befe;",
+              xfwm_target: "N/A (GTK3 :hover)",
+              usage: "Estado :hover para botões primários e links interativos."
+            },
+            {
+              id: "accent_mint",
+              name: "Accent Mint (Mint Identity)",
+              css_var: "--ds-accent-mint",
+              value: "#94e2d5",
+              gtk_define: "@define-color accent_mint #94e2d5;",
+              xfwm_target: "N/A (Whisker / Terminal)",
+              usage: "Identidade do Tema Mint Leve: botão Whisker Menu, prompt do terminal, títulos de notificação e badges especiais."
+            }
+          ]
+        },
+        {
+          id: "semantic",
+          title: "Estados Semânticos e Controles de Janela",
+          description: "Feedback visual de sucesso, alerta e erro, mapeado também para os bitmaps de controle do xfwm4 (minimizar, maximizar, fechar).",
+          colors: [
+            {
+              id: "state_success",
+              name: "State Success / Minimize",
+              css_var: "--ds-state-success",
+              value: "#a6e3a1",
+              gtk_define: "@define-color state_success #a6e3a1;",
+              xfwm_target: "hide-active.xpm (botão minimizar)",
+              usage: "Indicador de bateria saudável, testes passando no terminal e controle de minimizar janela."
+            },
+            {
+              id: "state_warning",
+              name: "State Warning / Maximize",
+              css_var: "--ds-state-warning",
+              value: "#f9e2af",
+              gtk_define: "@define-color state_warning #f9e2af;",
+              xfwm_target: "maximize-active.xpm (botão maximizar)",
+              usage: "Avisos de atenção, bateria moderada e controle de maximizar janela."
+            },
+            {
+              id: "state_danger",
+              name: "State Danger / Close",
+              css_var: "--ds-state-danger",
+              value: "#f38ba8",
+              gtk_define: "@define-color state_danger #f38ba8;",
+              xfwm_target: "close-active.xpm (botão fechar)",
+              usage: "Ações destrutivas (button.destructive-action), alertas críticos e controle de fechar janela."
+            }
+          ]
+        },
+        {
+          id: "borders_windows",
+          title: "Bordas e Decoração de Janelas (xfwm4 & GTK3)",
+          description: "Tokens dedicados ao contorno estrutural de widgets e janelas gerenciadas pelo xfwm4.",
+          colors: [
+            {
+              id: "border_subtle",
+              name: "Border Subtle",
+              css_var: "--ds-border-subtle",
+              value: "#313244",
+              gtk_define: "@define-color border_subtle #313244;",
+              xfwm_target: "Divisores internos de barra de título",
+              usage: "Contorno discreto de 1px em botões, inputs, cards, separadores e borda inferior do painel XFCE."
+            },
+            {
+              id: "border_focus",
+              name: "Window Border Active (Focus)",
+              css_var: "--ds-border-focus",
+              value: "#89b4fa",
+              gtk_define: "@define-color border_focus #89b4fa;",
+              xfwm_target: "left/right/bottom-active.xpm (2px)",
+              usage: "Borda externa de 2px da janela ativa no xfwm4 e contorno de inputs com foco (:focus)."
+            },
+            {
+              id: "border_inactive",
+              name: "Window Border Inactive",
+              css_var: "--ds-border-inactive",
+              value: "#262639",
+              gtk_define: "@define-color border_inactive #262639;",
+              xfwm_target: "left/right/bottom-inactive.xpm (2px)",
+              usage: "Borda externa de 2px de janelas em segundo plano (:backdrop) no xfwm4."
+            },
+            {
+              id: "titlebar_active",
+              name: "Titlebar Active Fill",
+              css_var: "--ds-titlebar-active",
+              value: "#1e1e2e",
+              gtk_define: "@define-color titlebar_active #1e1e2e;",
+              xfwm_target: "title-1..5-active.xpm, top-left/right-active.xpm",
+              usage: "Preenchimento da barra de título de janelas focadas."
+            },
+            {
+              id: "titlebar_inactive",
+              name: "Titlebar Inactive Fill",
+              css_var: "--ds-titlebar-inactive",
+              value: "#181825",
+              gtk_define: "@define-color titlebar_inactive #181825;",
+              xfwm_target: "title-1..5-inactive.xpm, top-left/right-inactive.xpm",
+              usage: "Preenchimento da barra de título de janelas inativas (:backdrop)."
+            }
+          ]
+        }
+      ]
+    };
+
+    let activePalette = FALLBACK_PALETTE;
+    let currentCategory = "all";
+    let currentQuery = "";
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+      }
+      const toast = document.getElementById("copy-toast");
+      const toastText = document.getElementById("copy-toast-text");
+      toastText.textContent = text;
+      toast.style.display = "block";
+      clearTimeout(window.__copyTimer);
+      window.__copyTimer = setTimeout(() => {
+        toast.style.display = "none";
+      }, 1800);
+    }
+
+    function renderPalette() {
+      const root = document.getElementById("palette-showcase-root");
+      root.innerHTML = "";
+
+      const gtkLines = [];
+      const cssLines = [":root {"];
+
+      activePalette.categories.forEach((cat) => {
+        gtkLines.push(`/* ${cat.title} */`);
+        cssLines.push(`  /* ${cat.title} */`);
+
+        cat.colors.forEach((c) => {
+          gtkLines.push(c.gtk_define);
+          cssLines.push(`  ${c.css_var}: ${c.value};`);
+        });
+
+        if (currentCategory !== "all" && currentCategory !== cat.id) {
+          return;
+        }
+
+        const filteredColors = cat.colors.filter((c) => {
+          if (!currentQuery) return true;
+          const hay = `${c.id} ${c.name} ${c.css_var} ${c.value} ${c.gtk_define} ${c.xfwm_target} ${c.usage}`.toLowerCase();
+          return hay.includes(currentQuery);
+        });
+
+        if (filteredColors.length === 0) return;
+
+        const section = document.createElement("section");
+        section.className = "ds-palette-section";
+
+        section.innerHTML = `
+          <div class="ds-palette-section__header">
+            <h2 class="ds-palette-section__title">
+              <span>${cat.title}</span>
+              <span class="ds-atom-badge">${filteredColors.length} cores</span>
+            </h2>
+            <p class="ds-palette-section__desc">${cat.description}</p>
+          </div>
+          <div class="ds-palette-grid">
+            ${filteredColors
+              .map(
+                (c) => `
+              <article class="ds-palette-card">
+                <div class="ds-palette-card__preview" style="background: ${c.value};">
+                  <span class="ds-palette-card__pill" data-copy="${c.value}" title="Clique para copiar o valor">${c.value}</span>
+                  <span class="ds-palette-card__pill" data-copy="var(${c.css_var})" title="Clique para copiar var(${c.css_var})">${c.id}</span>
+                </div>
+                <div class="ds-palette-card__body">
+                  <h3 class="ds-palette-card__title">
+                    <span>${c.name}</span>
+                  </h3>
+                  <p class="ds-palette-card__usage">${c.usage}</p>
+                  <div class="ds-palette-card__mappings">
+                    <div class="ds-palette-card__map-row" data-copy="${c.css_var}" title="Clique para copiar variável CSS">
+                      <span class="ds-palette-card__map-label">CSS Var</span>
+                      <span class="ds-palette-card__map-val">${c.css_var}</span>
+                    </div>
+                    <div class="ds-palette-card__map-row" data-copy="${c.gtk_define}" title="Clique para copiar @define-color GTK3">
+                      <span class="ds-palette-card__map-label">GTK3</span>
+                      <span class="ds-palette-card__map-val">${c.gtk_define}</span>
+                    </div>
+                    <div class="ds-palette-card__map-row" data-copy="${c.xfwm_target}" title="Alvo no xfwm4">
+                      <span class="ds-palette-card__map-label">xfwm4</span>
+                      <span class="ds-palette-card__map-val">${c.xfwm_target}</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            `
+              )
+              .join("")}
+          </div>
+        `;
+
+        root.appendChild(section);
+      });
+
+      cssLines.push("}");
+      document.getElementById("gtk-export-code").textContent = gtkLines.join("\n");
+      document.getElementById("css-export-code").textContent = cssLines.join("\n");
+
+      root.querySelectorAll("[data-copy]").forEach((el) => {
+        el.addEventListener("click", () => copyText(el.getAttribute("data-copy")));
+      });
+    }
+
+    // Carrega palette.json via fetch (Live Server) com fallback imediato
+    fetch("palette.json")
+      .then((res) => (res.ok ? res.json() : FALLBACK_PALETTE))
+      .then((data) => {
+        activePalette = data;
+        renderPalette();
+      })
+      .catch(() => {
+        renderPalette();
+      });
+
+    // Eventos de filtro e busca
+    document.querySelectorAll("#category-filters button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#category-filters button").forEach((b) => {
+          b.classList.remove("ds-atom-btn--primary");
+        });
+        btn.classList.add("ds-atom-btn--primary");
+        currentCategory = btn.getAttribute("data-filter");
+        renderPalette();
+      });
+    });
+
+    document.getElementById("palette-search").addEventListener("input", (e) => {
+      currentQuery = e.target.value.trim().toLowerCase();
+      renderPalette();
+    });
+  </script>
+</body>
+</html>

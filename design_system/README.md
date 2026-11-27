@@ -7,6 +7,8 @@ Esta pasta contém o **Design System vivo e navegável** do projeto `tema_mint_l
 Abra qualquer um dos arquivos HTML abaixo usando a extensão **Live Server** (ou diretamente no navegador). Todas as páginas possuem uma barra de navegação superior que permite transitar entre as camadas do Atomic Design:
 
 - **[index.html](index.html)**: Visão geral da arquitetura visual e regras do fluxo SDD + Atomic Design.
+- **[palette.json](palette.json)**: **Fonte Única da Verdade da Paleta de Cores** — JSON estruturado por categoria com mapeamento 1:1 para variáveis CSS (`--ds-*`), diretivas GTK3 (`@define-color`) e alvos `xfwm4` (`themerc` / `.xpm`).
+- **[palette.html](palette.html)**: **Showcase Dedicado da Paleta de Cores** — Página interativa que consome `palette.json`, permitindo filtrar categorias, testar contrastes, copiar tokens com 1 clique e exportar blocos `@define-color` e `:root`.
 - **[tokens.html](tokens.html)**: **Nível 0 (Tokens)** — Paleta de cores centralizada (`:root`), tipografia compatível com Pango e medidas de bordas com mapeamento 1:1 para `@define-color` no `gtk.css` e `themerc` no `xfwm4`.
 - **[atoms.html](atoms.html)**: **Nível 1 (Átomos)** — Elementos indivisíveis (botões GTK3, inputs `entry`, controles de janela `xfwm4`, badges, switches e separadores), com snippet, quando usar e seletor de destino no OS.
 - **[molecules.html](molecules.html)**: **Nível 2 (Moléculas)** — Combinações funcionais de átomos (barra de título `xfwm4` ativa/inativa, grupo Whisker Menu + Workspaces, itens de Tasklist, Systray + Relógio e notificações `xfce4-notifyd`).
